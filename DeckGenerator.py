@@ -17,30 +17,30 @@ def combinaiton23(num, ret, oper, outputs):
             for op in oper:
                 if op == '+':
                     temp = ret.copy()
-                    temp.append([x,'-'])
+                    temp.append([x,'+'])
                     combinaiton23(num - x, temp, oper, outputs)
                 elif op == '-':
                     temp = ret.copy()
-                    temp.append([x,'+'])
+                    temp.append([x,'-'])
                     combinaiton23(num + x, temp, oper, outputs)
                 elif op == '*':
                     temp = ret.copy()
-                    temp.append([x,'/'])
+                    temp.append([x,'*'])
                     combinaiton23(num / x, temp, oper, outputs)
                 else:
                     temp = ret.copy()
-                    temp.append([x,'*'])
+                    temp.append([x,'/'])
                     combinaiton23(num * x, temp, oper, outputs)
 
 # with open('results.txt', 'w') as file:
 combinaiton23(twt, results, operation, outputs)
 df = pd.DataFrame(outputs)
 print(df.head(), df.columns)
-df = df.loc[df[df.columns[1]] == 0].reset_index().drop(columns = ['index',df.columns[1]])
-df = df.rename(columns ={df.columns[0]:'Answers'})
+correctdf = df.loc[df[df.columns[1]] == 0].reset_index().drop(columns = ['index',df.columns[1]])
+correctdf = correctdf.rename(columns ={correctdf.columns[0]:'Answers'})
 lastdf = pd.DataFrame(columns = ['Num1','Oper1',
                     'Num2','Oper2','Num3','Oper3','Num4','Oper4'])
-for ans in df['Answers']:
+for ans in correctdf['Answers']:
     lastdf = lastdf.append({'Num1' : ans[0][0],'Oper1' : ans[0][1],
                 'Num2' : ans[1][0],'Oper2' : ans[1][1],
                 'Num3' : ans[2][0],'Oper3' : ans[2][1],
