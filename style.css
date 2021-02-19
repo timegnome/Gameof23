@@ -1,0 +1,71 @@
+body {
+    background-color: black;
+    color: white;
+}
+#text{
+  color: white;
+}
+
+.container-fluid {
+    padding-top: 7rem;
+    padding-bottom: 7rem;
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: black;
+}
+
+.container {
+    padding-left: 0px;
+    padding-right: 0px;
+    background-color: black;
+}
+
+.row {
+    margin-left: 0px;
+    margin-right: 0px;
+    /* overflow: hidden; */
+    display: flex;
+    align-items: center;
+    background-color: black;
+}
+
+.btn-med {
+    margin-top: 10px;
+}
+
+
+.lead {
+    color: white;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  color:  white;
+}
+.rowtext {
+    color: white;
+}
+.ui-state-default{
+    background :  rgb(97, 11, 11);
+}
+
+#sortable {
+    /* list-style-type: none; */
+    margin: 1;
+    padding: 0;
+    width: 40%; 
+}
+#sortable li {
+    margin: 0 3px 3px 3px;
+    padding: 0.4em;
+    padding-left: 1.5em;
+    font-size: 1.4em;
+    /* height: 18px; */
+ }
+/* #sortable li span {
+    position: absolute;
+    margin-left: -1.3em; 
+} */

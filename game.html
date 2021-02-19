@@ -10,11 +10,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
         
     <link rel="stylesheet" href='style.css'>
-    <style>
-        #sortable { list-style-type: none; margin: 0; padding: 0; width: 60%; }
-        #sortable li { margin: 0 3px 3px 3px; padding: 0.4em; padding-left: 1.5em; font-size: 1.4em; height: 18px; }
-        #sortable li span { position: absolute; margin-left: -1.3em; }
-    </style>
+    <script src=" https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" ></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script>
@@ -28,15 +24,6 @@
 </head>
 
 <body>
-    <!-- Top Button -->
-    							
-	<div class="progress-wrap">
-		<svg class="progress-circle svg-content" width="100%" height="100%" viewBox="-1 -1 102 102">
-			<path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98"/>
-		</svg>
-	</div>
-        
-    <!-- Image and text -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href='/'>Go23 </a>
         
@@ -45,32 +32,67 @@
         </button>
         
     </nav>
-
-    <div class ='row'>
-        <div class ='col-md-2'></div>
-        <div class = 'col-md-8 justified-text-centered'>
-            <h3>Get to 23 using all 4 cards once, 
-                with only the operations of addition(+), subtraction(-), multiplication(*) and division(&#xF7)
-                and cannot be rounded to (must be a whole number).
-            </h3>
-            <ul id="sortable">
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 1</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 2</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 3</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 4</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 5</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 6</li>
-                <li class="ui-state-default"><span class="ui-icon ui-icon-arrowthick-2-n-s"></span>Item 7</li>
-              </ul>
+    <div class="row">
+        <div class ='col-lg-2'></div>
+        <div class ='col-lg-8'>
+            <div class ='row'>
+                <div class ='col-md-2' style = 'vertical-align: text-top; font-size: large'>Directions:</div>
+                <div class = 'col-md-8 justified-text-centered'>
+                    <h3>Get to 23 using all 4 cards once, 
+                        with only the operations of addition(+), subtraction(-), multiplication(*) and division(&#xF7)
+                        and cannot be rounded to (must be a whole number).
+                    </h3>
+                </div>
+                <div class ='col-md-2'></div>
+            </div>
+            <div class='row'>
+                <div class = 'col-sm-3'>Operation 1
+                    <select id="oper" name="oper1">
+                        <option value="+">addition(+)</option>
+                        <option value="-">subtraction(-)</option>
+                        <option value="*">multiplication(&times)</option>
+                        <option value="&#xF7">division(&#xF7)</option>
+                    </select> 
+                </div>
+                <div class = 'col-sm-3'>Operation 2
+                    <select id="oper" name="oper2">
+                        <option value="+">addition(+)</option>
+                        <option value="-">subtraction(-)</option>
+                        <option value="*">multiplication(&times)</option>
+                        <option value="&#xF7">division(&#xF7)</option>
+                    </select> 
+                </div>
+                <div class = 'col-sm-3'>Operation 3
+                    <select id="oper" name="oper3">
+                        <option value="+">addition(+)</option>
+                        <option value="-">subtraction(-)</option>
+                        <option value="*">multiplication(&times)</option>
+                        <option value="&#xF7">division(&#xF7)</option>
+                    </select> 
+                </div>
+                <div class = 'col-sm-3'>Operation 4
+                    <select id="oper" name="oper4">
+                        <option value="+">addition(+)</option>
+                        <option value="-">subtraction(-)</option>
+                        <option value="*">multiplication(&times)</option>
+                        <option value="&#xF7">division(&#xF7)</option>
+                    </select> 
+                </div>
+            </div>
+            <div class = 'row'>
+                <div class="col-md-3"></div>
+                <div class="col-md-3">
+                    <ul id="sortable">
+                    </ul>
+                </div>
+                <div class="col-md-3">
+                    <div>Time left for the correct answer<span id = "time">02:00</span></div>
+                </div>
+                <div class="col-md-3"></div>
+            </div>
         </div>
-        <div class ='col-md-2'>
-            <div>Time left for the correct answer<span id = "time">02:00</span></div>
-        </div>
+        <div class ='col-lg-2'></div>
     </div>
-    <footer>
-        <p>&copy;  - Gameof23</p>
-    </footer>
-
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="app23.js"></script>
