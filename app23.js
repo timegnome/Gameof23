@@ -57,9 +57,6 @@ function startTimer(duration, display, numply = 2) {
           li.append('text').html(deck[deckpos[i]]);
           deck.push(deck.splice(deckpos[i],1)[0]);
           deckpos[i]--;
-          console.log(deck[deckpos[i]])
-          console.log(deckpos[i])
-          console.log(deck)
         }
       }
       // The amount of time left before a new round and results are shown
@@ -85,9 +82,6 @@ function startTimer(duration, display, numply = 2) {
                   li = answer.append('li').attr('class','ui-state-default');
                   li.append('text').html(deck[deckpos[i]]);
                   deck.push(deck.splice(deckpos[i],1)[0]);
-                  console.log(deck[deckpos[i]])
-                  console.log(deckpos[i])
-                  console.log(deck)
                   deckpos[i]--;
                   
                 }
@@ -118,6 +112,7 @@ function startTimer(duration, display, numply = 2) {
                   break;
               }
             });
+            console.log(total)
           }
         }
       }, 1000);
