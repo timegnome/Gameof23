@@ -47,8 +47,10 @@ function startTimer(duration, display, numply = 2) {
       total = 0;
       deck = shuffle(deck);
       var answer = d3.select("#sortable");
-      
-      addCards(answer.selectAll('li'), deck, deckpos, numply);
+
+      answer.html("");
+      addCards(answer, deck, deckpos, numply);
+
       // The amount of time left before a new round and results are shown
       setInterval(function () {
         minutes = parseInt(timer / 60, 10);
@@ -59,14 +61,17 @@ function startTimer(duration, display, numply = 2) {
   
         display.textContent = minutes + ":" + seconds;
         
-        if( --timer< 0){
+        if( --timer < 0){
           answer = d3.select("#sortable");
-          if (timer == -10) {
+          if (timer === -10) {
+            // Reset timer duration
               timer = duration;
+              // Reset Card list
+              answer.html("")
               // pull 4 cards from amount of players
-              addCards(answer.selectAll('li'),deck, deckpos, numply);
+              addCards(answer,deck, deckpos, numply);
           }
-          else{
+          else if (timer === -1){
             order = answer.selectAll('li').nodes();
             opers = d3.selectAll('#oper').nodes();
             d3.select('#total').html(calctotal(order, opers));
@@ -79,61 +84,63 @@ function startTimer(duration, display, numply = 2) {
 
 function addCards(cardlist, Deck, deckPos, numPly)
 {
-  var content = []
   for ( i = 0; i < deckPos.length-1; i ++)
   {
     for(y = 0; y< Math.ceil(4/numPly); y++)
     {
-      content.push(Deck[deckPos[i]])
-      Deck.push(Deck.splice(deckPos[i],1)[0]);
+      // add to end of the deck
+      li = cardlist.append('li')
+      .attr('class','ui-state-default')
+      if(Deck[deckPos[i]] === 'A'){
+        li.on('dbclick', function(){
+          console.log(this)
+          // this.html(`${12-this.html()}`)
+        })
+        li.html(1)
+      }
+      else{
+        li.html(Deck[deckPos[i]])
+      }
+      Deck.push(Deck.splice(deckPos[i],1)[0]); // Change to add to winnner after round
       deckPos[i]--;
     }
   }
-  cardlist.data(content)
-  .each(function(d,i){
-    if(d === 'A'){
-      this.on('dblclick', function(d){
-      this.html(`${12-this.html()}`)})}
-    d.append('text')
-      .html(1);
-  })
 }
 function calctotal(numOrder, totalOpers)
 {
-  console.log(totalOpers)
   var orderIndex = 0, temp = 0;
-  totalOpers.forEach(operVal => {
-    var val = numOrder[orderIndex].textContent;
-    if(val in ['K','Q','J']){
-        val= 10;}
-    // if(val === 'A-1' || val === 'A'){
-    //   val = 1
-    // }
-    // if(val === 'A-11'){
-    //   val = 11
-    // } 
-    switch(operVal){
-      case '+':
-        temp += val;
-        orderIndex++;
-        break;
-      case '-':
-        temp -= val;
-        orderIndex++;
-        break
-      case '*':
-        temp *= val;
-        orderIndex++;
-        break;
-      case '&#xF7':
-        temp /= val;
-        orderIndex++;
-        break;
-    }
-  });
-  console.log(temp)
-  return temp;
+  try {
+    totalOpers.forEach(operVal => {
+      var val = numOrder[orderIndex].textContent;
+      if(['K','Q','J'].includes(val)){
+          val= 10;}
+      parseInt(val)
+      switch(operVal.value){
+        case '+':
+          temp += val;
+          orderIndex++;
+          break;
+        case '-':
+          temp -= val;
+          orderIndex++;
+          break
+        case '*':
+          temp *= val;
+          orderIndex++;
+          break;
+        case '&#xF7':
+          temp /= val;
+          orderIndex++;
+          break;
+      }
+    });
+    console.log(temp)
+    return temp;
+  }
+  catch (error) {
+    return 'Tried to divide by 0';
+  }
 }
-var fiveMinutes = 60 * 2,
+var fiveMinutes = 60 * .5 ,
 display = document.querySelector('#time');
 startTimer(fiveMinutes, display);
