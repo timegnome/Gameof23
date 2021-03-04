@@ -76,6 +76,12 @@ h5 {
     height: 1.5em;
     line-height: 1.2em;
  }
+ #total{
+    margin-bottom: 3px;
+    margin-top: 3px;
+    font-size: 20px;
+    text-align : center;
+ }
 /* #sortable li span {
     position: absolute;
     margin-left: -1.3em; 
