@@ -25,8 +25,12 @@ function shuffle(array) {
   
     return array;
   }
+// Add reshuffle
+// Convert into single deck with points if correct
+// If no solution don't add to wrong
+// Add search for potential solutions after round
+// Add ability to change timer duration for skill level
 
-  
 function startTimer(duration, display, numply = 2) {
   var timer = duration, minutes, seconds;
   d3.csv("data/results.csv").then(function(options, err) {
@@ -67,14 +71,17 @@ function startTimer(duration, display, numply = 2) {
             // Reset timer duration
               timer = duration;
               // Reset Card list
-              answer.html("")
+              answer.html("");
               // pull 4 cards from amount of players
               addCards(answer,deck, deckpos, numply);
           }
           else if (timer === -1){
             order = answer.selectAll('li').nodes();
             opers = d3.selectAll('#oper').nodes();
-            d3.select('#total').html(calctotal(order, opers));
+            calcValue = calctotal(order, opers);
+            // if(calcValue === 23)
+              
+            d3.select('#total').html(calcValue);
           }
         }
       }, 1000);
@@ -90,18 +97,19 @@ function addCards(cardlist, Deck, deckPos, numPly)
     {
       // add to end of the deck
       li = cardlist.append('li')
-      .attr('class','ui-state-default')
+      .attr('class','ui-state-default');
       if(Deck[deckPos[i]] === 'A'){
         li.on('dbclick', function(){
-          console.log(this)
+          console.log(this);
           // this.html(`${12-this.html()}`)
-        })
-        li.html(1)
+        });
+        li.html(1);
       }
       else{
-        li.html(Deck[deckPos[i]])
+        li.html(Deck[deckPos[i]]);
       }
-      Deck.push(Deck.splice(deckPos[i],1)[0]); // Change to add to winnner after round
+      // add to end of the deck
+      Deck.push(Deck.splice(deckPos[i],1)[0]); 
       deckPos[i]--;
     }
   }
@@ -111,10 +119,9 @@ function calctotal(numOrder, totalOpers)
   var orderIndex = 0, temp = 0;
   try {
     totalOpers.forEach(operVal => {
-      var val = numOrder[orderIndex].textContent;
+      var val = parseFloat(numOrder[orderIndex].textContent);
       if(['K','Q','J'].includes(val)){
-          val= 10;}
-      parseInt(val)
+          val= 10.0;}
       switch(operVal.value){
         case '+':
           temp += val;
@@ -134,7 +141,6 @@ function calctotal(numOrder, totalOpers)
           break;
       }
     });
-    console.log(temp)
     return temp;
   }
   catch (error) {
